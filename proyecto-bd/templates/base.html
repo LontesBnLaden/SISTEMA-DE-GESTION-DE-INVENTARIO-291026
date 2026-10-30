@@ -1,0 +1,35 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>{% block title %}Inventario{% endblock %} | Proyecto BD</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{% url 'dashboard' %}" aria-label="Ir al inicio de Inventario">
+      <span class="brand-mark" aria-hidden="true">I</span>
+      <span>Inventario<span class="brand-dot">.</span></span>
+    </a>
+    <nav class="topnav" aria-label="Navegación principal">
+      <a href="{% url 'dashboard' %}">Panel</a>
+      <a href="{% url 'proveedor_create' %}">Proveedores</a>
+      <a class="button button-primary button-small" href="{% url 'producto_create' %}">+ Nuevo producto</a>
+    </nav>
+  </header>
+  <main class="page-shell">
+    {% if messages %}
+      <div class="messages" role="status" aria-live="polite">
+        {% for message in messages %}
+          <div class="message message-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer">Proyecto de bases de datos · MySQL inventario</footer>
+</body>
+</html>

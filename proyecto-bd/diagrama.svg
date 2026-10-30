@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1250" height="560" viewBox="0 0 1250 560" role="img" aria-labelledby="title description">
+  <title id="title">Modelo relacional de inventario</title>
+  <desc id="description">Tablas proveedores y productos relacionadas por una clave foranea opcional.</desc>
+  <rect width="1250" height="560" fill="#f3f6fa"/>
+  <text x="625" y="52" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#16324f">BASE DE DATOS INVENTARIO</text>
+  <text x="625" y="81" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#4a6074">Modelo relacional - proveedores y productos</text>
+
+  <rect x="45" y="125" width="465" height="315" rx="8" fill="#ffffff" stroke="#315b7d" stroke-width="2"/>
+  <path d="M53 125h449a8 8 0 0 1 8 8v45H45v-45a8 8 0 0 1 8-8z" fill="#1e5b85"/>
+  <text x="277" y="159" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">PROVEEDORES</text>
+  <line x1="45" y1="178" x2="510" y2="178" stroke="#cad6e0"/>
+  <text x="70" y="211" font-family="Consolas, monospace" font-size="16" font-weight="700" fill="#16324f">PK</text>
+  <text x="120" y="211" font-family="Consolas, monospace" font-size="16" fill="#243746">id INT AUTO_INCREMENT</text>
+  <line x1="65" y1="228" x2="490" y2="228" stroke="#e1e8ee"/>
+  <text x="70" y="259" font-family="Consolas, monospace" font-size="16" fill="#243746">razon_social VARCHAR(100) NOT NULL</text>
+  <line x1="65" y1="276" x2="490" y2="276" stroke="#e1e8ee"/>
+  <text x="70" y="307" font-family="Consolas, monospace" font-size="16" fill="#243746">telefono VARCHAR(20) UNIQUE</text>
+  <line x1="65" y1="324" x2="490" y2="324" stroke="#e1e8ee"/>
+  <text x="70" y="355" font-family="Consolas, monospace" font-size="16" fill="#243746">email VARCHAR(100) UNIQUE</text>
+  <line x1="65" y1="372" x2="490" y2="372" stroke="#e1e8ee"/>
+  <text x="70" y="403" font-family="Consolas, monospace" font-size="16" fill="#243746">direccion VARCHAR(120) NULL</text>
+
+  <rect x="740" y="125" width="465" height="315" rx="8" fill="#ffffff" stroke="#315b7d" stroke-width="2"/>
+  <path d="M748 125h449a8 8 0 0 1 8 8v45H740v-45a8 8 0 0 1 8-8z" fill="#1e5b85"/>
+  <text x="972" y="159" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">PRODUCTOS</text>
+  <line x1="740" y1="178" x2="1205" y2="178" stroke="#cad6e0"/>
+  <text x="765" y="211" font-family="Consolas, monospace" font-size="16" font-weight="700" fill="#16324f">PK</text>
+  <text x="815" y="211" font-family="Consolas, monospace" font-size="16" fill="#243746">id INT AUTO_INCREMENT</text>
+  <line x1="760" y1="228" x2="1185" y2="228" stroke="#e1e8ee"/>
+  <text x="765" y="259" font-family="Consolas, monospace" font-size="16" font-weight="700" fill="#16324f">FK</text>
+  <text x="815" y="259" font-family="Consolas, monospace" font-size="16" fill="#243746">proveedor_id INT NULL</text>
+  <line x1="760" y1="276" x2="1185" y2="276" stroke="#e1e8ee"/>
+  <text x="765" y="307" font-family="Consolas, monospace" font-size="16" fill="#243746">stock INT NULL DEFAULT 0</text>
+  <line x1="760" y1="324" x2="1185" y2="324" stroke="#e1e8ee"/>
+  <text x="765" y="355" font-family="Consolas, monospace" font-size="16" fill="#243746">nombre VARCHAR(100) NOT NULL</text>
+  <line x1="760" y1="372" x2="1185" y2="372" stroke="#e1e8ee"/>
+  <text x="765" y="403" font-family="Consolas, monospace" font-size="16" fill="#243746">precio DECIMAL(10,2) NULL</text>
+
+  <line x1="510" y1="285" x2="740" y2="285" stroke="#315b7d" stroke-width="2"/>
+  <text x="520" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#315b7d">0..1</text>
+  <text x="704" y="270" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#315b7d">0..N</text>
+  <text x="625" y="310" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#4a6074">fk_productos_proveedores</text>
+  <text x="625" y="477" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#5c6e7c">Al eliminar un proveedor, sus productos se conservan con proveedor_id = NULL.</text>
+  <text x="625" y="502" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#5c6e7c">PK = clave primaria  |  FK = clave foranea  |  UNIQUE = valor no repetido</text>
+</svg>

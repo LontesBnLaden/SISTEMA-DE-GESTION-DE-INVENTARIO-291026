@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+
+entity "Proveedor" as Proveedor {
+  * id : Identificador <<PK>>
+  --
+  razon_social : Texto(100) <<obligatorio>>
+  telefono : Texto(20) <<unico, opcional>>
+  email : Texto(100) <<unico, opcional>>
+  direccion : Texto(120) <<opcional>>
+}
+
+entity "Producto" as Producto {
+  * id : Identificador <<PK>>
+  --
+  nombre : Texto(100) <<obligatorio>>
+  stock : Entero <<opcional, por defecto 0>>
+  precio : Decimal(10,2) <<opcional>>
+}
+
+Proveedor o|--o{ Producto : suministra
+@enduml

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Eliminar {{ tipo }}{% endblock %}
+{% block content %}
+<section class="confirm-wrap">
+  <div class="panel confirm-panel">
+    <span class="confirm-icon">!</span>
+    <p class="eyebrow">CONFIRMAR ACCIÓN</p>
+    <h1>¿Eliminar este {{ tipo }}?</h1>
+    <p><strong>{{ objeto }}</strong></p>
+    {% if tipo == "proveedor" %}<p>Los productos relacionados se conservarán y quedarán sin proveedor.</p>{% else %}<p>Esta acción elimina el producto del inventario.</p>{% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-actions"><a class="button button-quiet" href="{% url volver %}">Cancelar</a><button class="button button-danger" type="submit">Sí, eliminar</button></div>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+
+entity "proveedores" as proveedores {
+  * id : INT <<PK, AUTO_INCREMENT>>
+  --
+  razon_social : VARCHAR(100) <<NOT NULL>>
+  telefono : VARCHAR(20) <<UNIQUE, NULL>>
+  email : VARCHAR(100) <<UNIQUE, NULL>>
+  direccion : VARCHAR(120) <<NULL>>
+}
+
+entity "productos" as productos {
+  * id : INT <<PK, AUTO_INCREMENT>>
+  --
+  proveedor_id : INT <<FK, NULL>>
+  stock : INT <<NULL, DEFAULT 0>>
+  nombre : VARCHAR(100) <<NOT NULL>>
+  precio : DECIMAL(10,2) <<NULL>>
+}
+
+proveedores o|--o{ productos : fk_productos_proveedores
+@enduml

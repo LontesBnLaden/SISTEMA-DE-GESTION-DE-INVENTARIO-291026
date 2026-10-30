@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Panel{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">SISTEMA DE INVENTARIO</p>
+    <h1>Tu inventario,<br><span>en orden.</span></h1>
+    <p class="hero-copy">Administra productos y proveedores desde una sola pantalla.</p>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="art-card art-card-back"></div>
+    <div class="art-card art-card-front"><span>↗</span><strong>INVENTARIO</strong><small>CONTROL Y SEGUIMIENTO</small></div>
+    <div class="art-orbit"></div>
+  </div>
+</section>
+
+<section class="stats" aria-label="Resumen del inventario">
+  <article class="stat-card">
+    <span class="stat-icon icon-blue">▦</span>
+    <div><p>Productos registrados</p><strong>{{ total_productos }}</strong></div>
+  </article>
+  <article class="stat-card">
+    <span class="stat-icon icon-violet">♧</span>
+    <div><p>Proveedores</p><strong>{{ total_proveedores }}</strong></div>
+  </article>
+  <a class="stat-action" href="{% url 'proveedor_create' %}">
+    <span>+</span><div><strong>Agregar proveedor</strong><small>Registra un nuevo proveedor</small></div>
+  </a>
+</section>
+
+<section class="content-grid">
+  <article class="panel products-panel">
+    <div class="panel-heading">
+      <div><p class="eyebrow">CATÁLOGO</p><h2>Productos</h2></div>
+      <form class="search-form" method="get" role="search">
+        <label class="sr-only" for="product-search">Buscar producto o proveedor</label>
+        <input id="product-search" name="q" value="{{ search }}" placeholder="Buscar producto...">
+        <button type="submit" aria-label="Buscar">⌕</button>
+      </form>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Producto</th><th>Proveedor</th><th>Stock</th><th>Precio</th><th><span class="sr-only">Acciones</span></th></tr></thead>
+        <tbody>
+        {% for producto in productos %}
+          <tr>
+            <td><span class="product-avatar">{{ producto.nombre|first|upper }}</span><strong>{{ producto.nombre }}</strong></td>
+            <td>{% if producto.proveedor %}{{ producto.proveedor.razon_social }}{% else %}<span class="muted">Sin proveedor</span>{% endif %}</td>
+            <td><span class="stock-pill {% if producto.stock|default:0 <= 5 %}stock-low{% endif %}">{{ producto.stock|default:0 }}</span></td>
+            <td>{% if producto.precio is not None %}S/ {{ producto.precio|floatformat:2 }}{% else %}<span class="muted">—</span>{% endif %}</td>
+            <td class="row-actions">
+              <a href="{% url 'producto_update' producto.pk %}" aria-label="Editar {{ producto.nombre }}">Editar</a>
+              <a class="danger-link" href="{% url 'producto_delete' producto.pk %}" aria-label="Eliminar {{ producto.nombre }}">Eliminar</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td class="empty-state" colspan="5"><span>▦</span><strong>No hay productos todavía</strong><small>Agrega un producto para comenzar.</small><a class="button button-primary" href="{% url 'producto_create' %}">Crear producto</a></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <aside class="panel suppliers-panel">
+    <div class="panel-heading">
+      <div><p class="eyebrow">RELACIONES</p><h2>Proveedores</h2></div>
+      <a class="icon-button" href="{% url 'proveedor_create' %}" aria-label="Agregar proveedor">+</a>
+    </div>
+    <div class="supplier-list">
+      {% for proveedor in proveedores %}
+        <article class="supplier-item">
+          <span class="supplier-avatar">{{ proveedor.razon_social|first|upper }}</span>
+          <div class="supplier-info"><strong>{{ proveedor.razon_social }}</strong><small>{{ proveedor.total_productos }} producto{{ proveedor.total_productos|pluralize }}</small></div>
+          <div class="supplier-actions">
+            <a href="{% url 'proveedor_update' proveedor.pk %}" aria-label="Editar {{ proveedor.razon_social }}">✎</a>
+            <a href="{% url 'proveedor_delete' proveedor.pk %}" aria-label="Eliminar {{ proveedor.razon_social }}">×</a>
+          </div>
+        </article>
+      {% empty %}
+        <p class="muted supplier-empty">Todavía no hay proveedores registrados.</p>
+      {% endfor %}
+    </div>
+    <a class="text-link" href="{% url 'proveedor_create' %}">+ Registrar proveedor</a>
+  </aside>
+</section>
+{% endblock %}
